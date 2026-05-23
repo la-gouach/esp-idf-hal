@@ -1,5 +1,7 @@
 use crate::adc;
 use crate::can;
+#[cfg(all(esp_idf_comp_espressif__esp_secure_cert_mgr_enabled, esp32s3))]
+use crate::ds;
 use crate::gpio;
 use crate::i2c;
 #[cfg(esp_idf_soc_i2s_supported)]
@@ -133,6 +135,8 @@ pub struct Peripherals {
     pub sdmmc1: sd::mmc::SDMMC1<'static>,
     #[cfg(all(esp_idf_soc_temp_sensor_supported, esp_idf_version_major = "5"))]
     pub temp_sensor: temp_sensor::TempSensor<'static>,
+    #[cfg(all(esp_idf_comp_espressif__esp_secure_cert_mgr_enabled, esp32s3))]
+    pub ds: ds::DS,
     // TODO: Check the timer story for c2, h2, c5, c6, and p4
     #[cfg(all(feature = "timer-legacy", not(esp_idf_version_at_least_6_0_0)))]
     pub timer00: timer::TIMER00<'static>,
@@ -272,6 +276,8 @@ impl Peripherals {
             sdmmc1: sd::mmc::SDMMC1::steal(),
             #[cfg(all(esp_idf_soc_temp_sensor_supported, esp_idf_version_major = "5"))]
             temp_sensor: temp_sensor::TempSensor::steal(),
+            #[cfg(all(esp_idf_comp_espressif__esp_secure_cert_mgr_enabled, esp32s3))]
+            ds: ds::DS::steal(),
             #[cfg(all(feature = "timer-legacy", not(esp_idf_version_at_least_6_0_0)))]
             timer00: timer::TIMER00::steal(),
             #[cfg(all(feature = "timer-legacy", not(esp_idf_version_at_least_6_0_0)))]

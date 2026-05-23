@@ -29,6 +29,8 @@ pub mod adc;
 pub mod can;
 pub mod cpu;
 pub mod delay;
+#[cfg(all(esp_idf_comp_espressif__esp_secure_cert_mgr_enabled, esp32s3))]
+pub mod ds;
 pub mod gpio;
 pub mod i2c;
 #[cfg_attr(
