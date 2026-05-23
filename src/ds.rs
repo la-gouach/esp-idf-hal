@@ -1,3 +1,11 @@
+//! Digital Signature driver
+//!
+//! To use, put this in your `Cargo.toml`:
+//! ```
+//! [[package.metadata.esp-idf-sys.extra_components]]
+//! remote_component = { name = "espressif/esp_secure_cert_mgr", version = "2.5.0" }
+//! ```
+
 use crate::{
     peripheral::Peripheral,
     sys::{
