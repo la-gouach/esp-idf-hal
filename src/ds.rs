@@ -45,6 +45,7 @@ impl Drop for DsDriver<'_> {
 }
 
 unsafe impl Send for DsDriver<'_> {}
+unsafe impl Sync for DsDriver<'_> {}
 
 impl fmt::Debug for DsDriver<'_> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
