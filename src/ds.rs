@@ -7,7 +7,6 @@
 //! ```
 
 use crate::{
-    peripheral::Peripheral,
     sys::{
         esp_ds_data_ctx, esp_secure_cert_free_ds_ctx, esp_secure_cert_get_ds_ctx, EspError,
         ESP_FAIL,
@@ -21,7 +20,9 @@ pub struct DsDriver<'d> {
 }
 
 impl<'d> DsDriver<'d> {
-    pub fn new(_ds: impl Peripheral<P = DS> + 'd) -> Result<Self, EspError> {
+    pub fn new(
+        _ds: DS<'d>,
+) -> Result<Self, EspError> {
         let ctx = unsafe { esp_secure_cert_get_ds_ctx() };
         if ctx.is_null() {
             Err(EspError::from_infallible::<ESP_FAIL>())

@@ -136,7 +136,7 @@ pub struct Peripherals {
     #[cfg(all(esp_idf_soc_temp_sensor_supported, esp_idf_version_major = "5"))]
     pub temp_sensor: temp_sensor::TempSensor<'static>,
     #[cfg(all(esp_idf_comp_espressif__esp_secure_cert_mgr_enabled, esp32s3))]
-    pub ds: ds::DS,
+    pub ds: ds::DS<'static>,
     // TODO: Check the timer story for c2, h2, c5, c6, and p4
     #[cfg(all(feature = "timer-legacy", not(esp_idf_version_at_least_6_0_0)))]
     pub timer00: timer::TIMER00<'static>,
@@ -278,9 +278,9 @@ impl Peripherals {
             temp_sensor: temp_sensor::TempSensor::steal(),
             #[cfg(all(feature = "timer-legacy", not(esp_idf_version_at_least_6_0_0)))]
             timer00: timer::TIMER00::steal(),
-            #[cfg(all(feature = "timer-legacy", not(esp_idf_version_at_least_6_0_0)))]
             #[cfg(all(esp_idf_comp_espressif__esp_secure_cert_mgr_enabled, esp32s3))]
-            ds: ds::DS::new(),
+            ds: ds::DS::steal(),
+            #[cfg(all(feature = "timer-legacy", not(esp_idf_version_at_least_6_0_0)))]
             #[cfg(any(esp32, esp32s2, esp32s3))]
             timer01: timer::TIMER01::steal(),
             #[cfg(all(feature = "timer-legacy", not(esp_idf_version_at_least_6_0_0)))]

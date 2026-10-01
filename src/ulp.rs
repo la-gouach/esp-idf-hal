@@ -1,3 +1,5 @@
+use core::marker::PhantomData;
+
 #[derive(Copy, Clone, Eq, PartialEq, Debug, Default)]
 pub enum SleepTimer {
     #[default]
@@ -327,7 +329,7 @@ crate::impl_peripheral!(ULP);
     all(esp32s2, esp_idf_esp32s2_ulp_coproc_enabled),
     all(esp32s3, esp_idf_esp32s3_ulp_coproc_enabled)
 ))]
-impl ULP {
+impl ULP<'_> {
     const RTC_SLOW_MEM: u32 = 0x5000_0000_u32;
 
     pub const MEM_START_ULP: *mut core::ffi::c_void = 0_u32 as _;
