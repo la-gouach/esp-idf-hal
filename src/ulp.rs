@@ -91,7 +91,7 @@ unsafe impl<'d> Send for UlpDriver<'d> {}
     all(esp32s3, esp_idf_esp32s3_ulp_coproc_enabled)
 ))]
 impl<'d> UlpDriver<'d> {
-    pub fn new(ulp: ULP<'d>) -> Result<Self, esp_idf_sys::EspError> {
+    pub fn new(_ulp: ULP<'d>) -> Result<Self, esp_idf_sys::EspError> {
         Ok(Self(PhantomData))
     }
 
